@@ -8,6 +8,8 @@ const BarChart = () => {
             try {
                 const res = await fetch('http://localhost:3000/stocks/1')
                 const json = await res.json()
+                const formattedData = prepareData(json)
+                createChart(formattedData)
                 console.log('BarChart - json', json)
             } catch (err) {
                 console.log(err)
@@ -27,6 +29,14 @@ const BarChart = () => {
         })
         console.log(chartData)
         return chartData
+    }
+
+    const createChart = (data) => {
+        const ctx = document.querySelector('#average_prices')
+        const pricesChart = new Chart(ctx, {
+            type: 'line',
+            data: data
+        })
     }
 
     return (
